@@ -1,7 +1,6 @@
 package com.example.readingmanagementsystem.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,10 +8,7 @@ import android.os.Bundle;
 
 import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.adapters.BookRecViewAdapter;
-import com.example.readingmanagementsystem.model.Book;
 import com.example.readingmanagementsystem.util.Utils;
-
-import java.util.ArrayList;
 
 public class AllBooksActivity extends AppCompatActivity {
 
@@ -24,7 +20,7 @@ public class AllBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_books);
 
-        adapter = new BookRecViewAdapter(this);
+        adapter = new BookRecViewAdapter(this, ParentActivity.ALLBOOKS);
         booksRecycleView = findViewById(R.id.booksRecycleView);
 
         adapter.setBooks(Utils.getInstance().getAllBooks());

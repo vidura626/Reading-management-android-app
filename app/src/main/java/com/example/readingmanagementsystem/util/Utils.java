@@ -116,4 +116,25 @@ public class Utils {
         favoriteBooks.add(book);
         return true;
     }
+
+
+    public boolean deleteAlreadyReadBook(Book book) {
+        alreadyReadBooks.remove(book);
+        return true;
+    }
+
+    public boolean deleteWantToReadBook(Book book) {
+        wantToReadBooks.remove(book);
+        return true;
+    }
+
+    public boolean deleteCurrentlyReadingBook(Book book) {
+        currentlyReadingBooks.remove(book);
+        return true;
+    }
+
+    public boolean deleteFavoriteBook(Book book) {
+        favoriteBooks.remove(book);
+        return true;
+    }
 }

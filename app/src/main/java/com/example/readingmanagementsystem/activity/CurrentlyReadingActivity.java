@@ -20,10 +20,11 @@ public class CurrentlyReadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currently_reading);
         booksRecycleView = findViewById(R.id.booksRecycleView);
-        adapter = new BookRecViewAdapter(this);
+        adapter = new BookRecViewAdapter(this, ParentActivity.CURRENTLYREADING);
         adapter.setBooks(Utils.getInstance().getCurrentlyReadingBooks());
         booksRecycleView.setAdapter(adapter);
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override

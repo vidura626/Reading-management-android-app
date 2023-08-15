@@ -80,17 +80,32 @@
                 android:layout_marginLeft="12dp"
                 android:id="@+id/txtShortDesc"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/txtAuthor"/>
+                android:layout_below="@+id/txtAuthor" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_up_arrow"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/btnUpArrow"
                 android:layout_below="@+id/txtShortDesc"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_below="@+id/txtShortDesc"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/btnUpArrow"
+                android:text="Delete"
+                android:textColor="#EC0000"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:rippleColor="#D16767" />
         </RelativeLayout>
     </RelativeLayout>
 
