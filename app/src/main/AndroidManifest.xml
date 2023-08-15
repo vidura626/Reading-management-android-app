@@ -15,6 +15,18 @@
         android:theme="@style/Theme.ReadingManagementSystem"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.WantToReadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CurrentlyReadingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.AlreadyReadActivity"
             android:exported="false" />
         <activity

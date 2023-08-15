@@ -11,19 +11,16 @@ import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.adapters.BookRecViewAdapter;
 import com.example.readingmanagementsystem.util.Utils;
 
-public class AlreadyReadActivity extends AppCompatActivity {
-
-
+public class WantToReadActivity extends AppCompatActivity {
     private BookRecViewAdapter adapter;
     private RecyclerView booksRecycleView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_already_read);
+        setContentView(R.layout.activity_want_to_read);
         booksRecycleView = findViewById(R.id.booksRecycleView);
         adapter = new BookRecViewAdapter(this);
-        adapter.setBooks(Utils.getInstance().getAlreadyReadBooks());
+        adapter.setBooks(Utils.getInstance().getWantToReadBooks());
         booksRecycleView.setAdapter(adapter);
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
