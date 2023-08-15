@@ -1,6 +1,7 @@
 package com.example.readingmanagementsystem.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
 import com.example.readingmanagementsystem.R;
+import com.example.readingmanagementsystem.activity.BookActivity;
 import com.example.readingmanagementsystem.model.Book;
 
 import java.util.ArrayList;
@@ -50,7 +52,8 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, books.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, BookActivity.class);
+                context.startActivity(intent);
             }
         });
 
