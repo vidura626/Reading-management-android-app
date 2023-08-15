@@ -2,14 +2,20 @@ package com.example.readingmanagementsystem.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.model.Book;
+import com.example.readingmanagementsystem.util.Utils;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookActivity extends AppCompatActivity {
 
@@ -30,19 +36,46 @@ public class BookActivity extends AppCompatActivity {
 
         initViews();
 
-//        TODO: get data from recyclerView
+//        get Data from Intent
 
-        String longDesc = "Atomic Habits by James Clear is a comprehensive, practical guide on how" +
-                " to change your habits and get 1% better every day. Using a framework called the" +
-                " Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules" +
-                " for creating good habits and breaking bad ones. Read the full summary to glean 3" +
-                " key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and" +
-                " get a handy reference guide for the strategies recommended throughout the book.";
-        Book book = new Book(1, "Atomic Habit", "James Clear", 535,
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlkk-L1KiG7ca0hK9_uEefpx3f5KhI2E4h7w&usqp=CAU",
-                "Theory of Habits", longDesc);
+        Intent intent = getIntent();
+        if (intent != null) {
+            Book book = (Book) intent.getSerializableExtra("book");
+            setData(book);
+            isAlreadyReadBook(book);
+        }
+    }
 
-        setData(book);
+    /**
+     * Enable or disable button
+     * Add the book to already read arraylist
+     * @param book
+     */
+    private void isAlreadyReadBook(Book book) {
+        AtomicBoolean isRead = new AtomicBoolean(false);
+        Utils.getInstance().getAlreadyReadBooks().forEach(alreadyReadBook -> {
+            if (book.getId() == alreadyReadBook.getId()) {
+                isRead.set(true);
+            }
+        });
+
+        if (isRead.get()) {
+            btnAddToAlreadyRead.setEnabled(false);
+        } else {
+            btnAddToAlreadyRead.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Utils.getInstance().addToAlreadyReadBooks(book)) {
+                        Toast.makeText(BookActivity.this, "Book added to already read", Toast.LENGTH_SHORT).show();
+                        btnAddToAlreadyRead.setEnabled(false);
+//                        TODO Navigate the user
+                    } else {
+                        Toast.makeText(BookActivity.this, "Something went wrong! Try again", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }
     }
 
     private void setData(Book book) {

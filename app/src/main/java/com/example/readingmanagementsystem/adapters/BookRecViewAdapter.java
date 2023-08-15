@@ -21,6 +21,7 @@ import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.activity.BookActivity;
 import com.example.readingmanagementsystem.model.Book;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.ViewHolder> {
@@ -53,6 +54,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, BookActivity.class);
+                intent.putExtra("book", (Serializable) books.get(position));
                 context.startActivity(intent);
             }
         });
