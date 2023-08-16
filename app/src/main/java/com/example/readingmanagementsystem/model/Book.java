@@ -1,7 +1,5 @@
 package com.example.readingmanagementsystem.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class Book implements Serializable {
@@ -14,6 +12,10 @@ public class Book implements Serializable {
     private String longDesc;
 
     private boolean isExpanded;
+    private boolean isFavorite;
+    private boolean isAlreadyRead;
+    private boolean isCurrentlyReading;
+    private boolean isWantToRead;
 
     public Book() {
     }
@@ -26,7 +28,50 @@ public class Book implements Serializable {
         this.imageUrl = imageUrl;
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
-        isExpanded = false;
+        this.isExpanded = false;
+        this.isFavorite = false;
+        this.isAlreadyRead = false;
+        this.isCurrentlyReading = false;
+        this.isWantToRead = false;
+
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public boolean isAlreadyRead() {
+        return isAlreadyRead;
+    }
+
+    public void setAlreadyRead(boolean alreadyRead) {
+        isAlreadyRead = alreadyRead;
+        isCurrentlyReading = false;
+        isWantToRead = false;
+    }
+
+    public boolean isCurrentlyReading() {
+        return isCurrentlyReading;
+    }
+
+    public void setCurrentlyReading(boolean currentlyReading) {
+        isCurrentlyReading = currentlyReading;
+        isWantToRead = false;
+        isAlreadyRead = false;
+    }
+
+    public boolean isWantToRead() {
+        return isWantToRead;
+    }
+
+    public void setWantToRead(boolean wantToRead) {
+        isWantToRead = wantToRead;
+        isCurrentlyReading = false;
+        isAlreadyRead = false;
     }
 
     public boolean isExpanded() {

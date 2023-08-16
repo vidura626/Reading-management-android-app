@@ -89,73 +89,60 @@ public class Utils {
 
 
     public ArrayList<Book> getAllBooks() {
-        String string = sharedPreferences.getString(ALL_BOOKS, null);
-        System.out.println("uae;srgouesrgjnsergse:" + string);
-        Object o = gson.fromJson(sharedPreferences.getString(ALL_BOOKS, null),
+        ArrayList<Book> books = (ArrayList<Book>) gson.fromJson(sharedPreferences.getString(ALL_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
-        ArrayList<Book> books = (ArrayList<Book>) o;
-        System.out.println("Books size : " + books);
-
         return books;
-    }
-
-    public void setAllBooks(ArrayList<Book> allBooks) {
-        Utils.allBooks = allBooks;
     }
 
     public ArrayList<Book> getAlreadyReadBooks() {
-        ArrayList<Book> books = new ArrayList<>();
-        ArrayList<Book> books1 = gson.fromJson(sharedPreferences.getString(ALREADY_READ_BOOKS, null),
+        ArrayList<Book> books = (ArrayList<Book>) gson.fromJson(sharedPreferences.getString(ALREADY_READ_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
-
                 });
-        if (books1 != null) {
-            books = books1;
+        if (books == null) {
+            return new ArrayList<Book>();
         }
+        books.forEach(book -> book.setAlreadyRead(true));
         return books;
-    }
-
-    public void setAlreadyReadBooks(ArrayList<Book> alreadyReadBooks) {
-        Utils.alreadyReadBooks = alreadyReadBooks;
     }
 
     public ArrayList<Book> getWantToReadBooks() {
         ArrayList<Book> books = gson.fromJson(sharedPreferences.getString(WANT_TO_READ_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
-        return books == null ? new ArrayList<Book>() : books;
-    }
-
-    public void setWantToReadBooks(ArrayList<Book> wantToReadBooks) {
-        Utils.wantToReadBooks = wantToReadBooks;
+        if(books == null) {
+            return new ArrayList<Book>();
+        }
+        books.forEach(book -> book.setWantToRead(true));
+        return books;
     }
 
     public ArrayList<Book> getCurrentlyReadingBooks() {
         ArrayList<Book> books = gson.fromJson(sharedPreferences.getString(CURRENTLY_READING_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
-        return books == null ? new ArrayList<Book>() : books;
-    }
-
-    public void setCurrentlyReadingBooks(ArrayList<Book> currentlyReadingBooks) {
-        Utils.currentlyReadingBooks = currentlyReadingBooks;
+        if(books == null) {
+            return new ArrayList<Book>();
+        }
+        books.forEach(book -> book.setCurrentlyReading(true));
+        return books;
     }
 
     public ArrayList<Book> getFavoriteBooks() {
         ArrayList<Book> books = gson.fromJson(sharedPreferences.getString(FAVORITE_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
+        if (books == null) {
+            return new ArrayList<Book>();
+        }
+        books.forEach(book -> book.setFavorite(true));
         System.out.println("SharedPreferences: " + books);
-        return books == null ? new ArrayList<Book>() : books;
-    }
-
-    public void setFavoriteBooks(ArrayList<Book> favoriteBooks) {
-        Utils.favoriteBooks = favoriteBooks;
+        return books;
     }
 
     public boolean addToAlreadyReadBooks(Book book) {
         ArrayList<Book> list = getAlreadyReadBooks();
+        book.setAlreadyRead(true);
         if (list.add(book)) {
             sharedPreferences.edit()
                     .remove(ALREADY_READ_BOOKS)
@@ -168,6 +155,7 @@ public class Utils {
 
     public boolean addToCurrentlyReadingBooks(Book book) {
         ArrayList<Book> list = getCurrentlyReadingBooks();
+        book.setCurrentlyReading(true);
         if (list.add(book)) {
             sharedPreferences.edit()
                     .remove(CURRENTLY_READING_BOOKS)
@@ -180,7 +168,7 @@ public class Utils {
 
     public boolean addToWantToReadBooks(Book book) {
         ArrayList<Book> list = getWantToReadBooks();
-
+        book.setWantToRead(true);
         if (list.add(book)) {
             sharedPreferences.edit()
                     .remove(WANT_TO_READ_BOOKS)
@@ -193,6 +181,7 @@ public class Utils {
 
     public boolean addToFavoriteBooks(Book book) {
         ArrayList<Book> list = getFavoriteBooks();
+        book.setFavorite(true);
         if (list.add(book)) {
             sharedPreferences.edit()
                     .remove(FAVORITE_BOOKS)
