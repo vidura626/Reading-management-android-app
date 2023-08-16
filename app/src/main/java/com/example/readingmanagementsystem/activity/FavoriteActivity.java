@@ -25,6 +25,7 @@ public class FavoriteActivity extends AppCompatActivity {
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);

@@ -2,9 +2,9 @@ package com.example.readingmanagementsystem.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readingmanagementsystem.R;
@@ -18,13 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnFavorite;
     private Button btnAbout;
 
-    /**
-     * Called when the activity is first created.*
-     * @param savedInstanceState If the activity is being re-initialized after
-     *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     *
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,57 +25,58 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        btnAllBooks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AllBooksActivity.class);
-                startActivity(intent);
-            }
+        btnAllBooks.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AllBooksActivity.class);
+            startActivity(intent);
         });
 
-        btnAlreadyRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AlreadyReadActivity.class);
-                startActivity(intent);
-            }
+        btnAlreadyRead.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AlreadyReadActivity.class);
+            startActivity(intent);
         });
 
-        btnWantedToRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WantToReadActivity.class);
-                startActivity(intent);
-            }
+        btnWantedToRead.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, WantToReadActivity.class);
+            startActivity(intent);
         });
 
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
-                startActivity(intent);
-            }
+        btnFavorite.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
+            startActivity(intent);
         });
 
-        btnAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                startActivity(intent);
-            }
+
+        btnAbout.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
         });
 
-        btnCurrentlyReading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CurrentlyReadingActivity.class);
-                startActivity(intent);
-            }
+
+        btnCurrentlyReading.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CurrentlyReadingActivity.class);
+            startActivity(intent);
+        });
+
+        btnAbout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(getString(R.string.app_name))
+                    .setMessage("The app description is a text paragraph explaining to users " +
+                            "about the app or game. The description, as a text element that is " +
+                            "(in most cases) below-the-fold, is less important from a conversion " +
+                            "rate optimization perspective. Take under consideration that users in " +
+                            "the App Store don't like to read.")
+                    .setPositiveButton("Visit", (dialog, which) -> {
+                        Intent intent = new Intent(MainActivity.this, WebActivity.class);
+                        intent.putExtra("url", "https://vidura626.github.io/my_Profile/");
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Dismiss", (dialog, which) -> dialog.cancel())
+                    .create().show();
         });
     }
 
     /**
-     * Init variables
+     * Initialize the views which from main_activity.xml
      */
     private void initViews() {
         btnAllBooks = findViewById(R.id.btnAllBooks);

@@ -89,6 +89,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                                     if (Utils.getInstance().deleteFavoriteBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from favorites"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
+                                        notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
                                     } else {
                                         Toast.makeText(context, "Something went wrong! Try again", Toast.LENGTH_SHORT).show();
@@ -118,6 +119,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                                     if (Utils.getInstance().deleteCurrentlyReadingBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from currently reading"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
+                                        notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
                                     } else {
                                         Toast.makeText(context, "Something went wrong! Try again", Toast.LENGTH_SHORT).show();
@@ -139,10 +141,12 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                                     if (Utils.getInstance().deleteWantToReadBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from want to read"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
+                                        notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
                                     }
                                 })
                                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+                        builder.create().show();
                     }
                 });
                 break;
@@ -156,10 +160,12 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                                     if (Utils.getInstance().deleteAlreadyReadBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from already read list"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
+                                        notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
                                     }
                                 }))
                                 .setNegativeButton("No", (dialog, which) -> dialog.cancel());
+                        builder.create().show();
                     }
                 });
                 break;

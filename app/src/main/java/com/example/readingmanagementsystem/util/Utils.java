@@ -98,43 +98,75 @@ public class Utils {
     }
 
     public boolean addToAlreadyReadBooks(Book book) {
-        alreadyReadBooks.add(book);
-        return true;
+        try {
+            alreadyReadBooks.add(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean addToCurrentlyReadingBooks(Book book) {
-        currentlyReadingBooks.add(book);
-        return true;
+        try {
+            currentlyReadingBooks.add(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean addToWantToReadBooks(Book book) {
-        wantToReadBooks.add(book);
-        return true;
+        try {
+            wantToReadBooks.add(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean addToFavoriteBooks(Book book) {
-        favoriteBooks.add(book);
-        return true;
+        try {
+            favoriteBooks.add(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 
     public boolean deleteAlreadyReadBook(Book book) {
-        alreadyReadBooks.remove(book);
-        return true;
+        try {
+            alreadyReadBooks.remove(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean deleteWantToReadBook(Book book) {
-        wantToReadBooks.remove(book);
-        return true;
+        try {
+            wantToReadBooks.remove(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean deleteCurrentlyReadingBook(Book book) {
-        currentlyReadingBooks.remove(book);
-        return true;
+        try {
+            currentlyReadingBooks.remove(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean deleteFavoriteBook(Book book) {
-        favoriteBooks.remove(book);
-        return true;
+        try {
+            favoriteBooks.remove(book);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

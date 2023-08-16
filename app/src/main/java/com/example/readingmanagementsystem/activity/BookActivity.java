@@ -49,6 +49,11 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Enable or disable button based on book status
+     * Add the book to favorite arraylist
+     * @param book
+     */
     private void isFavoriteBook(Book book) {
         AtomicBoolean isFavorite = new AtomicBoolean(false);
         Utils.getInstance().getFavoriteBooks().forEach(favoriteBook -> {
@@ -75,7 +80,11 @@ public class BookActivity extends AppCompatActivity {
             });
         }
     }
-
+    /**
+     * Enable or disable button based on book status
+     * Add the book to want to read arraylist
+     * @param book
+     */
     private void isWantToReadBook(Book book) {
         AtomicBoolean isWantToRead = new AtomicBoolean(false);
         Utils.getInstance().getWantToReadBooks().forEach(wantToReadBook -> {
@@ -102,7 +111,11 @@ public class BookActivity extends AppCompatActivity {
             });
         }
     }
-
+    /**
+     * Enable or disable button based on book status
+     * Add the book to currently reading arraylist
+     * @param book
+     */
     private void isCurrentlyReadingBook(Book book) {
         AtomicBoolean isReading = new AtomicBoolean(false);
         Utils.getInstance().getCurrentlyReadingBooks().forEach(currentlyReadingBook -> {
@@ -131,9 +144,8 @@ public class BookActivity extends AppCompatActivity {
     }
 
     /**
-     * Enable or disable button
+     * Enable or disable button based on book status
      * Add the book to already read arraylist
-     *
      * @param book
      */
     private void isAlreadyReadBook(Book book) {
