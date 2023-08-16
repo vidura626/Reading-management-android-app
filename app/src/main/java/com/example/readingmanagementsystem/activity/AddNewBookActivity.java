@@ -40,7 +40,7 @@ public class AddNewBookActivity extends AppCompatActivity implements View.OnFocu
         IS_SAVE = true;
         initViews();
 
-        txtNewBookId.setText(String.valueOf(Utils.getInstance(this).getAllBooks().size() + 1));
+        txtNewBookId.setText(String.format("%03d", Utils.getInstance(this).getAllBooks().size() + 1));
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("book")) {
@@ -114,7 +114,7 @@ public class AddNewBookActivity extends AppCompatActivity implements View.OnFocu
     }
 
     private void setData(Book book) {
-        txtNewBookId.setText(String.valueOf(book.getId()));
+        txtNewBookId.setText(String.format("%03d", book.getId()));
         txtNewBook.setText(book.getName());
         txtNewAuthor.setText(book.getAuthor());
         txtPages.setText(String.valueOf(book.getPages()));
