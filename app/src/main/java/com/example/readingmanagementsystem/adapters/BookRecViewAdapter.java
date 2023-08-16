@@ -64,7 +64,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                 context.startActivity(intent);
             }
         });
-
+        holder.txtShortDesc.setText(books.get(position).getShortDesc());
         if (books.get(position).isExpanded()) {
             TransitionManager.beginDelayedTransition(holder.parent);
             holder.expandedLayout.setVisibility(View.VISIBLE);
@@ -84,10 +84,11 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Are you sure you want to delete this book from favorites?")
+                        builder.setMessage("Are you sure you want to remove this book from favorites?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
 //                                    Utils.getInstance(context).setDeleteCallback(BookRecViewAdapter.this);
                                     Utils.getInstance(context).deleteFavoriteBook(books.get(position));
+                                    Toast.makeText(context, books.get(position).getName().concat(" is removed from favorites"), Toast.LENGTH_SHORT).show();
                                 })
                                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());
                         AlertDialog alert = builder.create();
@@ -108,10 +109,10 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Are you sure you want to delete this book from currently reading?")
+                        builder.setMessage("Are you sure you want to remove this book from currently reading?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
                                     if (Utils.getInstance(context).deleteCurrentlyReadingBook(books.get(position))) {
-                                        Toast.makeText(context, books.get(position).getName().concat(" is deleted from currently reading"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, books.get(position).getName().concat(" is remove from currently reading"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
@@ -131,10 +132,10 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Are you sure you want to delete this book from want to read?")
+                        builder.setMessage("Are you sure you want to remove this book from want to read?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
                                     if (Utils.getInstance(context).deleteWantToReadBook(books.get(position))) {
-                                        Toast.makeText(context, books.get(position).getName().concat(" is deleted from want to read"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, books.get(position).getName().concat(" is remove from want to read"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
@@ -151,10 +152,10 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Are you sure want to delete".concat(books.get(position).getName().concat(" from already read list ?")))
+                        builder.setMessage("Are you sure want to remove".concat(books.get(position).getName().concat(" from already read list ?")))
                                 .setPositiveButton("Yes", ((dialog, which) -> {
                                     if (Utils.getInstance(context).deleteAlreadyReadBook(books.get(position))) {
-                                        Toast.makeText(context, books.get(position).getName().concat(" is deleted from already read list"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, books.get(position).getName().concat(" is remove from already read list"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
@@ -179,7 +180,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
         if (true) {
             notifyDataSetChanged();
             context.startActivity(new Intent(context, context.getClass()));
-            Toast.makeText(context, "Book deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Book removed", Toast.LENGTH_SHORT).show();
         }
     }
 

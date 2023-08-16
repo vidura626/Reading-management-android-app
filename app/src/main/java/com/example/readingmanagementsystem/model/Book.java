@@ -159,9 +159,11 @@ public class Book implements Serializable {
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", pages=" + pages +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", shortDesc='" + shortDesc + '\'' +
-                ", longDesc='" + longDesc + '\'' +
+                ", isExpanded=" + isExpanded +
+                ", isFavorite=" + isFavorite +
+                ", isAlreadyRead=" + isAlreadyRead +
+                ", isCurrentlyReading=" + isCurrentlyReading +
+                ", isWantToRead=" + isWantToRead +
                 '}';
     }
 }

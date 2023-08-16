@@ -2,8 +2,8 @@ package com.example.readingmanagementsystem.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
-import com.example.readingmanagementsystem.activity.ParentActivity;
 import com.example.readingmanagementsystem.model.Book;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -97,6 +97,7 @@ public class Utils {
         if (books == null) {
             return new ArrayList<Book>();
         }
+        Log.d("GetAll : ", books.toString());
         return books;
     }
 
@@ -153,6 +154,7 @@ public class Utils {
                     .remove(ALREADY_READ_BOOKS)
                     .putString(ALREADY_READ_BOOKS, gson.toJson(list))
                     .commit();
+            updateBook(book);
             return true;
         }
         return false;
@@ -166,6 +168,7 @@ public class Utils {
                     .remove(CURRENTLY_READING_BOOKS)
                     .putString(CURRENTLY_READING_BOOKS, gson.toJson(list))
                     .commit();
+            updateBook(book);
             return true;
         }
         return false;
@@ -179,6 +182,7 @@ public class Utils {
                     .remove(WANT_TO_READ_BOOKS)
                     .putString(WANT_TO_READ_BOOKS, gson.toJson(list))
                     .commit();
+            updateBook(book);
             return true;
         }
         return false;
@@ -192,6 +196,7 @@ public class Utils {
                     .remove(FAVORITE_BOOKS)
                     .putString(FAVORITE_BOOKS, gson.toJson(list))
                     .commit();
+            updateBook(book);
             return true;
         }
         return false;
@@ -200,6 +205,8 @@ public class Utils {
 
     public boolean deleteAlreadyReadBook(Book book) {
         ArrayList<Book> list = getAlreadyReadBooks();
+        book.setAlreadyRead(false);
+        updateBook(book);
         ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
         sharedPreferences.edit()
                 .remove(ALREADY_READ_BOOKS)
@@ -210,6 +217,8 @@ public class Utils {
 
     public boolean deleteWantToReadBook(Book book) {
         ArrayList<Book> list = getWantToReadBooks();
+        book.setWantToRead(false);
+        updateBook(book);
         ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
         sharedPreferences.edit()
                 .remove(WANT_TO_READ_BOOKS)
@@ -220,6 +229,8 @@ public class Utils {
 
     public boolean deleteCurrentlyReadingBook(Book book) {
         ArrayList<Book> list = getCurrentlyReadingBooks();
+        book.setCurrentlyReading(false);
+        updateBook(book);
         ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
         sharedPreferences.edit()
                 .remove(CURRENTLY_READING_BOOKS)
@@ -235,6 +246,8 @@ public class Utils {
 
     public boolean deleteFavoriteBook(Book book) {
         ArrayList<Book> list = getFavoriteBooks();
+        book.setFavorite(false);
+        updateBook(book);
         ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
         sharedPreferences.edit()
                 .remove(FAVORITE_BOOKS)
