@@ -1,5 +1,7 @@
 package com.example.readingmanagementsystem.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Book implements Serializable {

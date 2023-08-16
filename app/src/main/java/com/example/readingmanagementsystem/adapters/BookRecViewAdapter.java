@@ -28,7 +28,7 @@ import com.example.readingmanagementsystem.util.Utils;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.ViewHolder> {
+public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.ViewHolder> implements Utils.DeleteCallback {
     private static final String TAG = "BookRecViewAdapter";
     private Context context;
     private ParentActivity parentActivity;
@@ -86,14 +86,8 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Are you sure you want to delete this book from favorites?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
-                                    if (Utils.getInstance().deleteFavoriteBook(books.get(position))) {
-                                        Toast.makeText(context, books.get(position).getName().concat(" is deleted from favorites"), Toast.LENGTH_SHORT).show();
-                                        notifyItemRemoved(position);
-                                        notifyDataSetChanged();
-                                        notifyItemRangeChanged(position, books.size());
-                                    } else {
-                                        Toast.makeText(context, "Something went wrong! Try again", Toast.LENGTH_SHORT).show();
-                                    }
+                                    Utils.getInstance(context).setDeleteCallback(BookRecViewAdapter.this);
+                                    Utils.getInstance(context).deleteFavoriteBook(books.get(position));
                                 })
                                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());
                         AlertDialog alert = builder.create();
@@ -116,11 +110,12 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Are you sure you want to delete this book from currently reading?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
-                                    if (Utils.getInstance().deleteCurrentlyReadingBook(books.get(position))) {
+                                    if (Utils.getInstance(context).deleteCurrentlyReadingBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from currently reading"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
+                                        context.startActivity(new Intent(context, context.getClass()));
                                     } else {
                                         Toast.makeText(context, "Something went wrong! Try again", Toast.LENGTH_SHORT).show();
                                     }
@@ -138,11 +133,12 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Are you sure you want to delete this book from want to read?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
-                                    if (Utils.getInstance().deleteWantToReadBook(books.get(position))) {
+                                    if (Utils.getInstance(context).deleteWantToReadBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from want to read"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
+                                        context.startActivity(new Intent(context, context.getClass()));
                                     }
                                 })
                                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());
@@ -157,11 +153,12 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Are you sure want to delete".concat(books.get(position).getName().concat(" from already read list ?")))
                                 .setPositiveButton("Yes", ((dialog, which) -> {
-                                    if (Utils.getInstance().deleteAlreadyReadBook(books.get(position))) {
+                                    if (Utils.getInstance(context).deleteAlreadyReadBook(books.get(position))) {
                                         Toast.makeText(context, books.get(position).getName().concat(" is deleted from already read list"), Toast.LENGTH_SHORT).show();
                                         notifyItemRemoved(position);
                                         notifyDataSetChanged();
                                         notifyItemRangeChanged(position, books.size());
+                                        context.startActivity(new Intent(context, context.getClass()));
                                     }
                                 }))
                                 .setNegativeButton("No", (dialog, which) -> dialog.cancel());
@@ -177,7 +174,18 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
         return books.size();
     }
 
+    @Override
+    public void onDelete(String id, boolean isSuccess) {
+        if (true) {
+            notifyDataSetChanged();
+            context.startActivity(new Intent(context, context.getClass()));
+            Toast.makeText(context, "Book deleted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+
         private CardView parent;
         private ImageView imgBook;
         private TextView txtName;
@@ -218,14 +226,6 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                     notifyItemChanged(getAdapterPosition());
                 }
             });
-
-           /* btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    books.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                }
-            });*/
         }
     }
 }

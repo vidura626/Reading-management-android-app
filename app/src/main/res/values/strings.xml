@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Reading Management System</string>
+    <string name="app_name">W I J E Readings</string>
+    <string name="all_books_activity">All Books</string>
+    <string name="want_to_read_activity">Want To Read</string>
+    <string name="favorite_activity">My Favorites</string>
+    <string name="already_read_activity">Already Read</string>
+    <string name="currently_reading_activity">Currently Reading</string>
+    <string name="about_activity">ABOUT</string>
+    <string name="view_book_activity">View Book</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.example.readingmanagementsystem.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.adapters.BookRecViewAdapter;
@@ -20,7 +22,7 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
         booksRecycleView = findViewById(R.id.booksRecycleView);
         adapter = new BookRecViewAdapter(this, ParentActivity.FAVORITE);
-        adapter.setBooks(Utils.getInstance().getFavoriteBooks());
+        adapter.setBooks(Utils.getInstance(this).getFavoriteBooks());
         booksRecycleView.setAdapter(adapter);
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }

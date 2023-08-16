@@ -17,7 +17,7 @@ import com.example.readingmanagementsystem.util.Utils;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BookActivity extends AppCompatActivity {
+public class BookActivity extends AppCompatActivity implements Utils.DeleteCallback {
 
     private TextView txtViewName;
     private TextView txtViewAuthor;
@@ -56,7 +56,7 @@ public class BookActivity extends AppCompatActivity {
      */
     private void isFavoriteBook(Book book) {
         AtomicBoolean isFavorite = new AtomicBoolean(false);
-        Utils.getInstance().getFavoriteBooks().forEach(favoriteBook -> {
+        Utils.getInstance(this).getFavoriteBooks().forEach(favoriteBook -> {
             if (book.getId() == favoriteBook.getId()) {
                 isFavorite.set(true);
             }
@@ -68,7 +68,7 @@ public class BookActivity extends AppCompatActivity {
             btnAddToFavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Utils.getInstance().addToFavoriteBooks(book)) {
+                    if (Utils.getInstance(BookActivity.this).addToFavoriteBooks(book)) {
                         Toast.makeText(BookActivity.this, "Book added to favorite", Toast.LENGTH_SHORT).show();
                         btnAddToFavorite.setEnabled(false);
                         Intent intent = new Intent(BookActivity.this, FavoriteActivity.class);
@@ -87,7 +87,7 @@ public class BookActivity extends AppCompatActivity {
      */
     private void isWantToReadBook(Book book) {
         AtomicBoolean isWantToRead = new AtomicBoolean(false);
-        Utils.getInstance().getWantToReadBooks().forEach(wantToReadBook -> {
+        Utils.getInstance(this).getWantToReadBooks().forEach(wantToReadBook -> {
             if (book.getId() == wantToReadBook.getId()) {
                 isWantToRead.set(true);
             }
@@ -99,7 +99,7 @@ public class BookActivity extends AppCompatActivity {
             btnAddToWantToRead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Utils.getInstance().addToWantToReadBooks(book)) {
+                    if (Utils.getInstance(BookActivity.this).addToWantToReadBooks(book)) {
                         Toast.makeText(BookActivity.this, "Book added to want to read", Toast.LENGTH_SHORT).show();
                         btnAddToWantToRead.setEnabled(false);
                         Intent intent = new Intent(BookActivity.this, WantToReadActivity.class);
@@ -118,7 +118,7 @@ public class BookActivity extends AppCompatActivity {
      */
     private void isCurrentlyReadingBook(Book book) {
         AtomicBoolean isReading = new AtomicBoolean(false);
-        Utils.getInstance().getCurrentlyReadingBooks().forEach(currentlyReadingBook -> {
+        Utils.getInstance(this).getCurrentlyReadingBooks().forEach(currentlyReadingBook -> {
             if (book.getId() == currentlyReadingBook.getId()) {
                 isReading.set(true);
             }
@@ -130,7 +130,7 @@ public class BookActivity extends AppCompatActivity {
             btnAddToCurrentlyReading.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Utils.getInstance().addToCurrentlyReadingBooks(book)) {
+                    if (Utils.getInstance(BookActivity.this).addToCurrentlyReadingBooks(book)) {
                         Toast.makeText(BookActivity.this, "Book added to currently reading", Toast.LENGTH_SHORT).show();
                         btnAddToCurrentlyReading.setEnabled(false);
                         Intent intent = new Intent(BookActivity.this, CurrentlyReadingActivity.class);
@@ -150,7 +150,7 @@ public class BookActivity extends AppCompatActivity {
      */
     private void isAlreadyReadBook(Book book) {
         AtomicBoolean isRead = new AtomicBoolean(false);
-        Utils.getInstance().getAlreadyReadBooks().forEach(alreadyReadBook -> {
+        Utils.getInstance(this).getAlreadyReadBooks().forEach(alreadyReadBook -> {
             if (book.getId() == alreadyReadBook.getId()) {
                 isRead.set(true);
             }
@@ -162,7 +162,7 @@ public class BookActivity extends AppCompatActivity {
             btnAddToAlreadyRead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Utils.getInstance().addToAlreadyReadBooks(book)) {
+                    if (Utils.getInstance(BookActivity.this).addToAlreadyReadBooks(book)) {
                         Toast.makeText(BookActivity.this, "Book added to already read", Toast.LENGTH_SHORT).show();
                         btnAddToAlreadyRead.setEnabled(false);
                         Intent intent = new Intent(BookActivity.this, AlreadyReadActivity.class);
@@ -197,4 +197,10 @@ public class BookActivity extends AppCompatActivity {
         btnAddToFavorite = findViewById(R.id.btnAddToFavorite);
     }
 
+
+
+    @Override
+    public void onDelete(String favoriteBooks, boolean b) {
+        Toast.makeText(this, "Book deleted", Toast.LENGTH_SHORT).show();
+    }
 }

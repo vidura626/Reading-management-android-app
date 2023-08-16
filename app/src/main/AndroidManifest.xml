@@ -8,36 +8,43 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/reading"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/reading"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ReadingManagementSystem"
+        android:theme="@style/Base.Theme.ReadingManagementSystem"
         tools:targetApi="31">
         <activity
             android:name=".activity.WebActivity"
             android:exported="false" />
         <activity
             android:name=".activity.AboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/about_activity" />
         <activity
             android:name=".activity.FavoriteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/favorite_activity" />
         <activity
             android:name=".activity.WantToReadActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/want_to_read_activity" />
         <activity
             android:name=".activity.CurrentlyReadingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/currently_reading_activity" />
         <activity
             android:name=".activity.AlreadyReadActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/already_read_activity" />
         <activity
             android:name=".activity.BookActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/view_book_activity" />
         <activity
             android:name=".activity.AllBooksActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/all_books_activity" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

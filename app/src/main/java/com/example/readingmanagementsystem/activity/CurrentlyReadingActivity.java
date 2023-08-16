@@ -2,7 +2,9 @@ package com.example.readingmanagementsystem.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,12 +23,10 @@ public class CurrentlyReadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_currently_reading);
         booksRecycleView = findViewById(R.id.booksRecycleView);
         adapter = new BookRecViewAdapter(this, ParentActivity.CURRENTLYREADING);
-        adapter.setBooks(Utils.getInstance().getCurrentlyReadingBooks());
+        adapter.setBooks(Utils.getInstance(this).getCurrentlyReadingBooks());
         booksRecycleView.setAdapter(adapter);
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
-
     }
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);

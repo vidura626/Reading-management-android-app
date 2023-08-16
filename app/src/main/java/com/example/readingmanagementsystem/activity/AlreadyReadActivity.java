@@ -1,11 +1,13 @@
 package com.example.readingmanagementsystem.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.adapters.BookRecViewAdapter;
@@ -23,7 +25,7 @@ public class AlreadyReadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_already_read);
         booksRecycleView = findViewById(R.id.booksRecycleView);
         adapter = new BookRecViewAdapter(this, ParentActivity.ALREADYREAD);
-        adapter.setBooks(Utils.getInstance().getAlreadyReadBooks());
+        adapter.setBooks(Utils.getInstance(this).getAlreadyReadBooks());
         booksRecycleView.setAdapter(adapter);
         booksRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
