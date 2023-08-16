@@ -17,4 +17,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="60dp"
+        android:id="@+id/btnAddNewBook"
+        android:layout_height="60dp"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/ic_add"
+        app:iconSize="60dp"
+        app:rippleColor="#295724"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

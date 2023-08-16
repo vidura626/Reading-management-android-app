@@ -3,11 +3,13 @@ package com.example.readingmanagementsystem.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.readingmanagementsystem.activity.ParentActivity;
 import com.example.readingmanagementsystem.model.Book;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -92,6 +94,9 @@ public class Utils {
         ArrayList<Book> books = (ArrayList<Book>) gson.fromJson(sharedPreferences.getString(ALL_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
+        if (books == null) {
+            return new ArrayList<Book>();
+        }
         return books;
     }
 
@@ -228,15 +233,97 @@ public class Utils {
         this.deleteCallback = deleteCallback;
     }
 
-    public void deleteFavoriteBook(Book book) {
+    public boolean deleteFavoriteBook(Book book) {
         ArrayList<Book> list = getFavoriteBooks();
         ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
         sharedPreferences.edit()
                 .remove(FAVORITE_BOOKS)
                 .putString(FAVORITE_BOOKS, gson.toJson(collect))
                 .commit();
-        deleteCallback.onDelete(FAVORITE_BOOKS.toLowerCase(),true);
+        return true;
+//        deleteCallback.onDelete(FAVORITE_BOOKS.toLowerCase(), true);
 
+    }
+
+    public int addNewBook(Book book) {
+        ArrayList<Book> list = getAllBooks();
+        book.setId(list.size() + 1);
+        if (list.add(book)) {
+            sharedPreferences.edit()
+                    .remove(ALL_BOOKS)
+                    .putString(ALL_BOOKS, gson.toJson(list))
+                    .commit();
+            return book.getId() + 1;
+        } else {
+            return -1;
+        }
+
+    }
+
+    public boolean deleteBook(Book book) {
+        ArrayList<Book> list = getAllBooks();
+        System.out.println("Size of list before: " + list.size());
+        ArrayList<Book> collect = list.stream().filter(b -> b.getId() != book.getId()).collect(Collectors.toCollection(ArrayList::new));
+        System.out.println("Size of list after: " + collect.size());
+        sharedPreferences.edit()
+                .remove(ALL_BOOKS)
+                .putString(ALL_BOOKS, gson.toJson(collect))
+                .commit();
+        deleteWantToReadBook(book);
+        deleteFavoriteBook(book);
+        deleteAlreadyReadBook(book);
+        deleteCurrentlyReadingBook(book);
+        return true;
+    }
+
+    public boolean updateBook(Book book) {
+        updateBook(getFavoriteBooks(), book, book.getId(), FAVORITE_BOOKS);
+        updateBook(getAlreadyReadBooks(), book, book.getId(), ALREADY_READ_BOOKS);
+        updateBook(getCurrentlyReadingBooks(), book, book.getId(), CURRENTLY_READING_BOOKS);
+        updateBook(getWantToReadBooks(), book, book.getId(), WANT_TO_READ_BOOKS);
+        return updateBook(getAllBooks(), book, book.getId(), ALL_BOOKS);
+
+        /*for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == book.getId()) {
+                list.set(i, book);
+                sharedPreferences.edit()
+                        .remove(ALL_BOOKS)
+                        .putString(ALL_BOOKS, gson.toJson(list))
+                        .commit();
+                return true;
+            }
+        }*/
+    }
+
+    /**
+     *
+     * @param list
+     * @param book
+     * @param id
+     * @param db ALL_BOOKS = "all_books";
+     *           ALREADY_READ_BOOKS = "already_read_books";
+     *           WANT_TO_READ_BOOKS = "want_to_read_books";
+     *           CURRENTLY_READING_BOOKS = "currently_reading_books";
+     *           FAVORITE_BOOKS = "favorite_books";
+     *
+     * @return
+     */
+    public boolean updateBook(List<Book> list, Book book, int id, String db) {
+        ArrayList<Book> arrayList = (ArrayList<Book>) list;
+        System.out.println("Update "+book);
+        System.out.println("List "+list);
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).getId() == id) {
+
+                arrayList.set(i, book);
+                sharedPreferences.edit()
+                        .remove(db)
+                        .putString(db, gson.toJson(arrayList))
+                        .commit();
+                return true;
+            }
+        }
+        return false;
     }
 
     public interface DeleteCallback {

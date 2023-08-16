@@ -86,7 +86,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Are you sure you want to delete this book from favorites?")
                                 .setPositiveButton("Yes", (dialog, id) -> {
-                                    Utils.getInstance(context).setDeleteCallback(BookRecViewAdapter.this);
+//                                    Utils.getInstance(context).setDeleteCallback(BookRecViewAdapter.this);
                                     Utils.getInstance(context).deleteFavoriteBook(books.get(position));
                                 })
                                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());

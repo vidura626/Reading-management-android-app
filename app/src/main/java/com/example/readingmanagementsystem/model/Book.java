@@ -33,6 +33,20 @@ public class Book implements Serializable {
         this.isAlreadyRead = false;
         this.isCurrentlyReading = false;
         this.isWantToRead = false;
+    }
+
+    public Book(String name, String author, int pages, String imageUrl, String shortDesc, String longDesc) {
+        this.name = name;
+        this.author = author;
+        this.pages = pages;
+        this.imageUrl = imageUrl;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.isExpanded = false;
+        this.isFavorite = false;
+        this.isAlreadyRead = false;
+        this.isCurrentlyReading = false;
+        this.isWantToRead = false;
 
     }
 

@@ -1,9 +1,9 @@
 package com.example.readingmanagementsystem.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +20,16 @@ public class AllBooksActivity extends AppCompatActivity {
     private RecyclerView booksRecycleView;
     private BookRecViewAdapter adapter;
 
+    private Button btnAddNewBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_books);
-
+        btnAddNewBook = findViewById(R.id.btnAddNewBook);
+        btnAddNewBook.setOnClickListener(v -> {
+            Intent intent = new Intent(AllBooksActivity.this, AddNewBookActivity.class);
+            startActivity(intent);
+        });
 //        overridePendingTransition(R.anim.slide_in, R.anim.slide_in);
 
         adapter = new BookRecViewAdapter(this, ParentActivity.ALLBOOKS);

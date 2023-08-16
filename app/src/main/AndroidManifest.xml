@@ -15,6 +15,9 @@
         android:theme="@style/Base.Theme.ReadingManagementSystem"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddNewBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.WebActivity"
             android:exported="false" />
         <activity

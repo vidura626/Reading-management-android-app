@@ -1,6 +1,5 @@
 package com.example.readingmanagementsystem.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.example.readingmanagementsystem.R;
 import com.example.readingmanagementsystem.model.Book;
 import com.example.readingmanagementsystem.util.Utils;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -32,6 +32,8 @@ public class BookActivity extends AppCompatActivity implements Utils.DeleteCallb
     private Button btnAddToWantToRead;
     private Button btnAddToAlreadyRead;
     private Button btnAddToFavorite;
+    private Button btnDeleteBook;
+    private Button btnUpdateBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,57 @@ public class BookActivity extends AppCompatActivity implements Utils.DeleteCallb
             isCurrentlyReadingBook(book);
             isWantToReadBook(book);
             isFavoriteBook(book);
+            deleteBook(book);
+            updateBook(book);
         }
+    }
+
+    private void updateBook(Book book) {
+
+        getValuesFromUI();
+        btnUpdateBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BookActivity.this, AddNewBookActivity.class);
+                intent.putExtra("book", (Serializable) book);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void getValuesFromUI() {
+        txtViewName.setText(txtViewName.getText());
+        txtViewAuthor.setText(txtViewAuthor.getText());
+        txtViewLongDesc.setText(txtViewLongDesc.getText());
+        txtViewPages.setText(txtViewPages.getText());
+
+    }
+
+    private void deleteBook(Book book) {
+        btnDeleteBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(BookActivity.this)
+                        .setMessage("Are you sure you want to delete this book?")
+                        .setPositiveButton("Yes", ((dialog, which) -> {
+                            if (Utils.getInstance(BookActivity.this).deleteBook(book)) {
+                                Toast.makeText(BookActivity.this, "Book deleted", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BookActivity.this, AllBooksActivity.class));
+                            }
+                        }))
+                        .setNegativeButton("No", ((dialog, which) -> {
+                            dialog.cancel();
+                        }))
+                        .create()
+                        .show();
+            }
+        });
     }
 
     /**
      * Enable or disable button based on book status
      * Add the book to favorite arraylist
+     *
      * @param book
      */
     private void isFavoriteBook(Book book) {
@@ -369,7 +416,9 @@ public class BookActivity extends AppCompatActivity implements Utils.DeleteCallb
 
 
     void initViews() {
-        txtViewName = findViewById(R.id.txtViewName);
+        btnUpdateBook = findViewById(R.id.btnUpdateBook);
+        btnDeleteBook = findViewById(R.id.btnDeleteBook);
+        txtViewName = findViewById(R.id.txtName);
         txtViewAuthor = findViewById(R.id.txtViewAuthor);
         txtViewLongDesc = findViewById(R.id.txtViewLongDesc);
         txtViewPages = findViewById(R.id.txtViewPages);
