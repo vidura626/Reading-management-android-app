@@ -435,4 +435,5 @@ public class BookActivity extends AppCompatActivity implements Utils.DeleteCallb
     public void onDelete(String favoriteBooks, boolean b) {
         Toast.makeText(this, "Book deleted", Toast.LENGTH_SHORT).show();
     }
+
 }
