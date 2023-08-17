@@ -94,10 +94,10 @@ public class Utils {
         ArrayList<Book> books = (ArrayList<Book>) gson.fromJson(sharedPreferences.getString(ALL_BOOKS, null),
                 new TypeToken<ArrayList<Book>>() {
                 });
-        if (books == null) {
+       /* if (books == null) {
             return new ArrayList<Book>();
-        }
-        Log.d("GetAll : ", books.toString());
+        }*/
+//        Log.d("GetAll : ", books.toString());
         return books;
     }
 

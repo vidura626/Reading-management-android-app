@@ -60,11 +60,9 @@ public class MainActivity extends AppCompatActivity {
         btnAbout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(getString(R.string.app_name))
-                    .setMessage("The app description is a text paragraph explaining to users " +
-                            "about the app or game. The description, as a text element that is " +
-                            "(in most cases) below-the-fold, is less important from a conversion " +
-                            "rate optimization perspective. Take under consideration that users in " +
-                            "the App Store don't like to read.")
+                    .setMessage("\nThis is a reading management application which can be helped people who interact with reading.\n\n" +
+                            "You can visit creator of WINE Readings applications portfolio site by clicking Visit button.\n\n" +
+                            "Thank you !")
                     .setPositiveButton("Visit", (dialog, which) -> {
                         Intent intent = new Intent(MainActivity.this, WebActivity.class);
                         intent.putExtra("url", "https://vidura626.github.io/my_Profile/");

@@ -145,13 +145,13 @@ public class AddNewBookActivity extends AppCompatActivity implements View.OnFocu
 
 
     void clearForm() {
-        txtNewBook.setText("");
-        txtNewAuthor.setText("");
-        txtPages.setText("");
-        txtShortDescription.setText("");
-        txtLongDescription.setText("");
-        txtImageUrl.setText("");
-        txtNewBookId.setText(Utils.getInstance(this).getAllBooks().size() + 1);
+        txtNewBook.setText(null);
+        txtNewAuthor.setText(null);
+        txtPages.setText(null);
+        txtShortDescription.setText(null);
+        txtLongDescription.setText(null);
+        txtImageUrl.setText(null);
+        txtNewBookId.setText(String.format("%03d",Utils.getInstance(this).getAllBooks().size() + 1));
         Glide.with(this).clear(imageViewBook);
     }
 
